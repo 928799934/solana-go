@@ -17,15 +17,15 @@ package main
 import (
 	"context"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.TestNet_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	txSig := solana.MustSignatureFromBase58("4bjVLV1g9SAfv7BSAdNnuSPRbSscADHFe4HegL6YVcuEBMY83edLEvtfjE4jfr6rwdLwKBQbaFiGgoLGtVicDzHq")
 	{

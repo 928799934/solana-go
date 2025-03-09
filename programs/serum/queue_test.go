@@ -25,10 +25,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/diff"
+	"github.com/928799934/solana-go/rpc"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/diff"
-	"github.com/gagliardetto/solana-go/rpc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -43,7 +43,7 @@ func TestDecoder_EventQueue_Diff(t *testing.T) {
 	newDataJSONFile := strings.ReplaceAll(newDataFile, ".bin.zst", ".json")
 
 	if os.Getenv("TESTDATA_UPDATE") == "true" {
-		client := rpc.New("http://api.mainnet-beta.solana.com:80/rpc")
+		client := rpc.New("http://api.mainnet-beta.solana.com:80/rpc", "")
 		ctx := context.Background()
 		account := solana.MustPublicKeyFromBase58("13iGJcA4w5hcJZDjJbJQor1zUiDLE4jv2rMW9HkD5Eo1")
 

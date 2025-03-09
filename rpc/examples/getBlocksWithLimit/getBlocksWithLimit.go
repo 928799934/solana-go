@@ -17,13 +17,13 @@ package main
 import (
 	"context"
 
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.TestNet_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	example, err := client.GetRecentBlockhash(
 		context.TODO(),

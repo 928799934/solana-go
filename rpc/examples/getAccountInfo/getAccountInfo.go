@@ -17,16 +17,16 @@ package main
 import (
 	"context"
 
+	solana "github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/programs/token"
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
-	solana "github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/programs/token"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.MainNetBeta_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	{
 		pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token

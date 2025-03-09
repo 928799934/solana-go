@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/gagliardetto/solana-go/rpc/jsonrpc"
+	"github.com/928799934/solana-go/rpc/jsonrpc"
 	"golang.org/x/time/rate"
 )
 
@@ -22,9 +22,10 @@ func NewWithLimiter(
 	rpcEndpoint string,
 	every rate.Limit, // time frame
 	b int, // number of requests per time frame
+	socks5Proxy string,
 ) JSONRPCClient {
 	opts := &jsonrpc.RPCClientOpts{
-		HTTPClient: newHTTP(),
+		HTTPClient: newHTTP(socks5Proxy),
 	}
 
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts)

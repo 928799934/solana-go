@@ -22,6 +22,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"strconv"
 	"sync"
@@ -31,6 +32,7 @@ import (
 	"github.com/gorilla/rpc/v2/json2"
 	"github.com/gorilla/websocket"
 	"go.uber.org/zap"
+	"golang.org/x/net/proxy"
 )
 
 var ErrSubscriptionClosed = errors.New("subscription closed")
@@ -78,6 +80,12 @@ func ConnectWithOptions(ctx context.Context, rpcEndpoint string, opt *Options) (
 		Proxy:             http.ProxyFromEnvironment,
 		HandshakeTimeout:  DefaultHandshakeTimeout,
 		EnableCompression: true,
+	}
+	if opt != nil && opt.Socks5Proxy != "" {
+		dialerSocket5, _ := proxy.SOCKS5("tcp", opt.Socks5Proxy, nil, proxy.Direct)
+		dialer.NetDialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return dialerSocket5.Dial(network, addr)
+		}
 	}
 
 	if opt != nil && opt.ShortID {

@@ -25,8 +25,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gagliardetto/solana-go/rpc/jsonrpc"
+	"github.com/928799934/solana-go/rpc/jsonrpc"
 	"github.com/klauspost/compress/gzhttp"
+	"golang.org/x/net/proxy"
 )
 
 var (
@@ -47,9 +48,9 @@ type JSONRPCClient interface {
 
 // New creates a new Solana JSON RPC client.
 // Client is safe for concurrent use by multiple goroutines.
-func New(rpcEndpoint string) *Client {
+func New(rpcEndpoint string, socks5Proxy string) *Client {
 	opts := &jsonrpc.RPCClientOpts{
-		HTTPClient: newHTTP(),
+		HTTPClient: newHTTP(socks5Proxy),
 	}
 
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts)
@@ -58,9 +59,9 @@ func New(rpcEndpoint string) *Client {
 
 // New creates a new Solana JSON RPC client with the provided custom headers.
 // The provided headers will be added to each RPC request sent via this RPC client.
-func NewWithHeaders(rpcEndpoint string, headers map[string]string) *Client {
+func NewWithHeaders(rpcEndpoint string, headers map[string]string, socks5Proxy string) *Client {
 	opts := &jsonrpc.RPCClientOpts{
-		HTTPClient:    newHTTP(),
+		HTTPClient:    newHTTP(socks5Proxy),
 		CustomHeaders: headers,
 	}
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts)
@@ -112,8 +113,16 @@ func newHTTPTransport() *http.Transport {
 
 // newHTTP returns a new Client from the provided config.
 // Client is safe for concurrent use by multiple goroutines.
-func newHTTP() *http.Client {
+func newHTTP(socks5Proxy string) *http.Client {
 	tr := newHTTPTransport()
+
+	if socks5Proxy != "" {
+		// 创建 SOCKS5 代理 Dialer
+		dialer, _ := proxy.SOCKS5("tcp", socks5Proxy, nil, proxy.Direct)
+		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return dialer.Dial(network, addr)
+		}
+	}
 
 	return &http.Client{
 		Timeout:   defaultTimeout,

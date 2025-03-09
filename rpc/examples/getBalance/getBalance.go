@@ -19,14 +19,14 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.MainNetBeta_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	pubKey := solana.MustPublicKeyFromBase58("7xLk17EQQ5KLDLDe44wCmupJKJjTGd8hs3eSVVhCx932")
 	out, err := client.GetBalance(

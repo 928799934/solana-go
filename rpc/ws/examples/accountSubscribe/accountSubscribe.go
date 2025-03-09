@@ -17,10 +17,10 @@ package main
 import (
 	"context"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/rpc"
+	"github.com/928799934/solana-go/rpc/ws"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
-	"github.com/gagliardetto/solana-go/rpc/ws"
 )
 
 func main() {

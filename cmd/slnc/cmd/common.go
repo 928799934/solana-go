@@ -19,9 +19,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gagliardetto/solana-go/rpc"
+	"github.com/928799934/solana-go/rpc"
 
-	"github.com/gagliardetto/solana-go/vault"
+	"github.com/928799934/solana-go/vault"
 	"github.com/spf13/viper"
 )
 
@@ -42,7 +42,7 @@ func getClient() *rpc.Client {
 		}
 		headers[headerArray[0]] = headerArray[1]
 	}
-	api := rpc.NewWithHeaders(sanitizeAPIURL(viper.GetString("global-rpc-url")), headers)
+	api := rpc.NewWithHeaders(sanitizeAPIURL(viper.GetString("global-rpc-url")), headers, "")
 	return api
 }
 

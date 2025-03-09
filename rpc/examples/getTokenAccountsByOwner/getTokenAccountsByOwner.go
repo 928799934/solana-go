@@ -17,16 +17,16 @@ package main
 import (
 	"context"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/programs/token"
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
 	bin "github.com/gagliardetto/binary"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/programs/token"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.TestNet_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	pubKey := solana.MustPublicKeyFromBase58("7HZaCWazgTuuFuajxaaxGYbGnyVKwxvsJKue1W4Nvyro")
 	out, err := client.GetTokenAccountsByOwner(

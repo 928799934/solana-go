@@ -18,14 +18,14 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/928799934/solana-go"
+	"github.com/928799934/solana-go/rpc"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go"
-	"github.com/gagliardetto/solana-go/rpc"
 )
 
 func main() {
 	endpoint := rpc.MainNetBeta_RPC
-	client := rpc.New(endpoint)
+	client := rpc.New(endpoint, "")
 
 	blockHash := solana.MustHashFromBase58("J7rBdM6AecPDEZp8aPq5iPSNKVkU5Q76F3oAV4eW5wsW")
 	out, err := client.IsBlockhashValid(

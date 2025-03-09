@@ -1,10 +1,16 @@
 # Solana SDK library for Go
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/gagliardetto/solana-go?status.svg)](https://pkg.go.dev/github.com/gagliardetto/solana-go@v1.12.0?tab=doc)
-[![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/gagliardetto/solana-go?include_prereleases&label=release-tag)](https://github.com/gagliardetto/solana-go/releases)
-[![Build Status](https://github.com/gagliardetto/solana-go/workflows/tests/badge.svg?branch=main)](https://github.com/gagliardetto/solana-go/actions?query=branch%3Amain)
-[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/gagliardetto/solana-go/main)](https://www.tickgit.com/browse?repo=github.com/gagliardetto/solana-go&branch=main)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gagliardetto/solana-go)](https://goreportcard.com/report/github.com/gagliardetto/solana-go)
+修改自 github.com/gagliardetto/solana-go 
+
+增加sock5代理支持
+
+--- 
+
+[![GoDoc](https://pkg.go.dev/badge/github.com/928799934/solana-go?status.svg)](https://pkg.go.dev/github.com/928799934/solana-go@v1.12.0?tab=doc)
+[![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/gagliardetto/solana-go?include_prereleases&label=release-tag)](https://github.com/928799934/solana-go/releases)
+[![Build Status](https://github.com/928799934/solana-go/workflows/tests/badge.svg?branch=main)](https://github.com/928799934/solana-go/actions?query=branch%3Amain)
+[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/928799934/solana-go/main)](https://www.tickgit.com/browse?repo=github.com/928799934/solana-go&branch=main)
+[![Go Report Card](https://goreportcard.com/badge/github.com/928799934/solana-go)](https://goreportcard.com/report/github.com/928799934/solana-go)
 
 Go library to interface with Solana JSON RPC and WebSocket interfaces.
 
@@ -12,7 +18,7 @@ More contracts to come.
 
 **If you're using/developing Solana programs written in [Anchor Framework](https://github.com/project-serum/anchor), you can use [anchor-go](https://github.com/gagliardetto/anchor-go) to generate Golang clients**
 
-**If you're looking for a SERUM library, you can check out [gagliardetto/serum-go](https://github.com/gagliardetto/serum-go) ([./programs/serum](https://github.com/gagliardetto/solana-go/tree/main/programs/serum) is deprecated.**)
+**If you're looking for a SERUM library, you can check out [gagliardetto/serum-go](https://github.com/gagliardetto/serum-go) ([./programs/serum](https://github.com/928799934/solana-go/tree/main/programs/serum) is deprecated.**)
 
 <div align="center">
     <img src="https://user-images.githubusercontent.com/15271561/128235229-1d2d9116-23bb-464e-b2cc-8fb6355e3b55.png" margin="auto" height="175"/>
@@ -100,7 +106,7 @@ The RPC and WS client implementation is based on [this RPC spec](https://github.
 
 ```bash
 $ cd my-project
-$ go get github.com/gagliardetto/solana-go@v1.12.0
+$ go get github.com/928799934/solana-go@v1.12.0
 ```
 
 ## Pretty-Print transactions/instructions
@@ -132,7 +138,7 @@ fmt.Println(tx.String())
 
 ## SendAndConfirmTransaction
 
-You can wait for a transaction confirmation using the `github.com/gagliardetto/solana-go/rpc/sendAndConfirmTransaction` package tools (for a complete example: [see here](#transfer-sol-from-one-wallet-to-another-wallet))
+You can wait for a transaction confirmation using the `github.com/928799934/solana-go/rpc/sendAndConfirmTransaction` package tools (for a complete example: [see here](#transfer-sol-from-one-wallet-to-another-wallet))
 
 ```go
 // Send transaction, and wait for confirmation:
@@ -163,9 +169,9 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gagliardetto/solana-go"
-	lookup "github.com/gagliardetto/solana-go/programs/address-lookup-table"
-	"github.com/gagliardetto/solana-go/rpc"
+	"github.com/928799934/solana-go"
+	lookup "github.com/928799934/solana-go/programs/address-lookup-table"
+	"github.com/928799934/solana-go/rpc"
 	"golang.org/x/time/rate"
 )
 
@@ -265,10 +271,10 @@ import (
 
   "github.com/davecgh/go-spew/spew"
   bin "github.com/gagliardetto/binary"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/programs/system"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/text"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/programs/system"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/text"
 )
 
 func main() {
@@ -294,7 +300,7 @@ func exampleFromBase64() {
 
 func exampleFromGetTransaction() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   txSig := solana.MustSignatureFromBase58("3hZorctJtD3QLCRV3zF6JM6FDbFR5kAvsuKEG1RH9rWdz8YgnDzAvMWZFjdJgoL8KSNzZnx7aiExm1JEMC8KHfyy")
   {
@@ -459,7 +465,7 @@ import (
 
   "golang.org/x/time/rate"
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
@@ -490,7 +496,7 @@ import (
 
   "golang.org/x/time/rate"
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
@@ -538,8 +544,8 @@ import (
   "net/http"
   "time"
 
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/jsonrpc"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/jsonrpc"
 )
 
 func NewHTTPTransport(
@@ -606,8 +612,8 @@ import (
   "context"
   "fmt"
 
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
@@ -713,13 +719,13 @@ import (
   "time"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/programs/system"
-  "github.com/gagliardetto/solana-go/rpc"
-  confirm "github.com/gagliardetto/solana-go/rpc/sendAndConfirmTransaction"
-  "github.com/gagliardetto/solana-go/rpc/jsonrpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
-  "github.com/gagliardetto/solana-go/text"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/programs/system"
+  "github.com/928799934/solana-go/rpc"
+  confirm "github.com/928799934/solana-go/rpc/sendAndConfirmTransaction"
+  "github.com/928799934/solana-go/rpc/jsonrpc"
+  "github.com/928799934/solana-go/rpc/ws"
+  "github.com/928799934/solana-go/text"
 )
 
 func main() {
@@ -920,14 +926,14 @@ import (
 
   "github.com/davecgh/go-spew/spew"
   bin "github.com/gagliardetto/binary"
-  solana "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/programs/token"
-  "github.com/gagliardetto/solana-go/rpc"
+  solana "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/programs/token"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   {
     pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token
@@ -1026,13 +1032,13 @@ import (
   "math/big"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("7xLk17EQQ5KLDLDe44wCmupJKJjTGd8hs3eSVVhCx932")
   out, err := client.GetBalance(
@@ -1064,13 +1070,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(context.TODO(), rpc.CommitmentFinalized)
   if err != nil {
@@ -1118,12 +1124,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(context.TODO(), rpc.CommitmentFinalized)
   if err != nil {
@@ -1150,12 +1156,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetBlockHeight(
     context.TODO(),
@@ -1177,12 +1183,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   {
     out, err := client.GetBlockProduction(context.TODO())
@@ -1220,12 +1226,12 @@ import (
   "time"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1256,12 +1262,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1294,12 +1300,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1332,12 +1338,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetClusterNodes(
     context.TODO(),
@@ -1359,13 +1365,13 @@ import (
 
   "github.com/AlekSi/pointer"
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1417,12 +1423,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1458,12 +1464,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1498,13 +1504,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token
   {
@@ -1532,13 +1538,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token
   // Let's get a valid transaction to use in the example:
@@ -1571,12 +1577,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetEpochInfo(
     context.TODO(),
@@ -1598,12 +1604,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetEpochSchedule(
     context.TODO(),
@@ -1624,12 +1630,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -1660,12 +1666,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetFeeRateGovernor(
     context.TODO(),
@@ -1686,12 +1692,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetFees(
     context.TODO(),
@@ -1713,12 +1719,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetFeeForMessage(
     context.Background(),
@@ -1741,12 +1747,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetFirstAvailableBlock(
     context.TODO(),
@@ -1767,12 +1773,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetGenesisHash(
     context.TODO(),
@@ -1793,12 +1799,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetHealth(
     context.TODO(),
@@ -1820,12 +1826,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetHighestSnapshotSlot(
     context.Background(),
@@ -1848,12 +1854,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   example, err := client.GetLatestBlockhash(
     context.Background(),
@@ -1875,12 +1881,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetIdentity(
     context.TODO(),
@@ -1901,12 +1907,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetInflationGovernor(
     context.TODO(),
@@ -1928,12 +1934,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetInflationRate(
     context.TODO(),
@@ -1954,13 +1960,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("6dmNQ5jwLeLk5REvio1JcMshcbvkYMwy26sJ8pbkvStu")
 
@@ -1989,12 +1995,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetLargestAccounts(
     context.TODO(),
@@ -2017,12 +2023,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetLeaderSchedule(
     context.TODO(),
@@ -2043,12 +2049,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetMaxRetransmitSlot(
     context.TODO(),
@@ -2069,12 +2075,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetMaxShredInsertSlot(
     context.TODO(),
@@ -2095,12 +2101,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   dataSize := uint64(1024 * 9)
   out, err := client.GetMinimumBalanceForRentExemption(
@@ -2124,13 +2130,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   {
     out, err := client.GetMultipleAccounts(
@@ -2176,13 +2182,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetProgramAccounts(
     context.TODO(),
@@ -2205,12 +2211,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   // DEPRECATED: This method is only available in solana-core v1.8 or older. Please use getLatestBlockhash for solana-core v1.9 or newer.
   recent, err := client.GetRecentBlockhash(
@@ -2232,12 +2238,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   limit := uint(3)
   out, err := client.GetRecentPerformanceSamples(
@@ -2260,13 +2266,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetRecentPrioritizationFees(
     context.TODO(),
@@ -2290,13 +2296,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSignatureStatuses(
     context.TODO(),
@@ -2321,13 +2327,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSignaturesForAddress(
     context.TODO(),
@@ -2349,12 +2355,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSlot(
     context.TODO(),
@@ -2376,12 +2382,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSlotLeader(
     context.TODO(),
@@ -2403,12 +2409,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   recent, err := client.GetLatestBlockhash(
     context.TODO(),
@@ -2439,12 +2445,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSnapshotSlot(
     context.TODO(),
@@ -2465,13 +2471,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("EW2p7QCJNHMVj5nQCcW7Q2BDETtNBXn68FyucU4RCjvb")
   out, err := client.GetStakeActivation(
@@ -2496,12 +2502,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetSupply(
     context.TODO(),
@@ -2523,13 +2529,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("EzK5qLWhftu8Z2znVa5fozVtobbjhd8Gdu9hQHpC8bec")
   out, err := client.GetTokenAccountBalance(
@@ -2553,13 +2559,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("AfkALUPjQp8R1rUwE6KhT38NuTYWCncwwHwcJu7UtAfV")
   out, err := client.GetTokenAccountsByDelegate(
@@ -2587,14 +2593,14 @@ import (
 
   "github.com/davecgh/go-spew/spew"
   bin "github.com/gagliardetto/binary"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/programs/token"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/programs/token"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("7HZaCWazgTuuFuajxaaxGYbGnyVKwxvsJKue1W4Nvyro")
   out, err := client.GetTokenAccountsByOwner(
@@ -2640,13 +2646,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token
   out, err := client.GetTokenLargestAccounts(
@@ -2670,13 +2676,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   pubKey := solana.MustPublicKeyFromBase58("SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt") // serum token
   out, err := client.GetTokenSupply(
@@ -2700,13 +2706,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   txSig := solana.MustSignatureFromBase58("4bjVLV1g9SAfv7BSAdNnuSPRbSscADHFe4HegL6YVcuEBMY83edLEvtfjE4jfr6rwdLwKBQbaFiGgoLGtVicDzHq")
   {
@@ -2753,12 +2759,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetTransactionCount(
     context.TODO(),
@@ -2780,12 +2786,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetVersion(
     context.TODO(),
@@ -2806,13 +2812,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.GetVoteAccounts(
     context.TODO(),
@@ -2836,13 +2842,13 @@ import (
   "context"
   "fmt"
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.MainNetBeta_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   blockHash := solana.MustHashFromBase58("J7rBdM6AecPDEZp8aPq5iPSNKVkU5Q76F3oAV4eW5wsW")
   out, err := client.IsBlockhashValid(
@@ -2869,12 +2875,12 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   out, err := client.MinimumLedgerSlot(
     context.TODO(),
@@ -2895,13 +2901,13 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
 )
 
 func main() {
   endpoint := rpc.TestNet_RPC
-  client := rpc.New(endpoint)
+  client := rpc.New(endpoint,"")
 
   amount := solana.LAMPORTS_PER_SOL // 1 sol
   pubKey := solana.MustPublicKeyFromBase58("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
@@ -2949,9 +2955,9 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3012,9 +3018,9 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3075,9 +3081,9 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3129,8 +3135,8 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3164,9 +3170,9 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3206,8 +3212,8 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
@@ -3242,8 +3248,8 @@ import (
   "context"
 
   "github.com/davecgh/go-spew/spew"
-  "github.com/gagliardetto/solana-go/rpc"
-  "github.com/gagliardetto/solana-go/rpc/ws"
+  "github.com/928799934/solana-go/rpc"
+  "github.com/928799934/solana-go/rpc/ws"
 )
 
 func main() {
