@@ -25,7 +25,7 @@ import (
 
 func main() {
 	endpoint := rpc.MainNetBeta_RPC
-	client := rpc.New(endpoint, "")
+	client := rpc.New(endpoint)
 
 	blockHash := solana.MustHashFromBase58("J7rBdM6AecPDEZp8aPq5iPSNKVkU5Q76F3oAV4eW5wsW")
 	out, err := client.IsBlockhashValid(

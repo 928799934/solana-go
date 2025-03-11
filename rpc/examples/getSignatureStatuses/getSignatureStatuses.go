@@ -24,7 +24,7 @@ import (
 
 func main() {
 	endpoint := rpc.TestNet_RPC
-	client := rpc.New(endpoint, "")
+	client := rpc.New(endpoint)
 
 	out, err := client.GetSignatureStatuses(
 		context.TODO(),

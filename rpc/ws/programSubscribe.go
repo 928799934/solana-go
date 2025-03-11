@@ -51,8 +51,8 @@ func (cl *Client) ProgramSubscribeWithOpts(
 	filters []rpc.RPCFilter,
 ) (*ProgramSubscription, error) {
 
-	params := []interface{}{programID.String()}
-	conf := map[string]interface{}{
+	params := []any{programID.String()}
+	conf := map[string]any{
 		"encoding": "base64",
 	}
 	if commitment != "" {
@@ -61,7 +61,7 @@ func (cl *Client) ProgramSubscribeWithOpts(
 	if encoding != "" {
 		conf["encoding"] = encoding
 	}
-	if filters != nil && len(filters) > 0 {
+	if len(filters) > 0 {
 		conf["filters"] = filters
 	}
 
@@ -70,7 +70,7 @@ func (cl *Client) ProgramSubscribeWithOpts(
 		conf,
 		"programSubscribe",
 		"programUnsubscribe",
-		func(msg []byte) (interface{}, error) {
+		func(msg []byte) (any, error) {
 			var res ProgramResult
 			err := decodeResponseFromMessage(msg, &res)
 			return &res, err

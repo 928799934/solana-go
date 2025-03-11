@@ -41,7 +41,7 @@ func TestFetchMarket(t *testing.T) {
 
 	//
 
-	client := rpc.New(rpcURL, "")
+	client := rpc.New(rpcURL)
 	ctx := context.Background()
 
 	openOrderAdd, err := solana.PublicKeyFromBase58("jFoHUkNDC767PyK11cZM4zyNcpjLqFnSjaqEYp5GVBr")

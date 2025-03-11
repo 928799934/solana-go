@@ -23,6 +23,8 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 type request struct {
@@ -73,7 +75,7 @@ type Options struct {
 	HttpHeader       http.Header
 	HandshakeTimeout time.Duration
 	ShortID          bool // some RPC do not support int63/uint64 id, so need to enable it to rand a int31/uint32 id
-	Socks5Proxy      string
+	WebSocketClient  *websocket.Dialer
 }
 
 var DefaultHandshakeTimeout = 45 * time.Second

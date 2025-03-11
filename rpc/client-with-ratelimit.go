@@ -20,10 +20,9 @@ type clientWithRateLimiting struct {
 func NewWithRateLimit(
 	rpcEndpoint string,
 	rps int, // requests per second
-	socks5Proxy string,
 ) JSONRPCClient {
 	opts := &jsonrpc.RPCClientOpts{
-		HTTPClient: newHTTP(socks5Proxy),
+		HTTPClient: newHTTP(),
 	}
 
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts)

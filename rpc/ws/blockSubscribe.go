@@ -41,13 +41,13 @@ var _ BlockSubscribeFilter = BlockSubscribeFilterAll("")
 
 type BlockSubscribeFilterAll string
 
-func (_ BlockSubscribeFilterAll) isBlockSubscribeFilter() {}
+func (b BlockSubscribeFilterAll) isBlockSubscribeFilter() {}
 
 type BlockSubscribeFilterMentionsAccountOrProgram struct {
 	Pubkey solana.PublicKey `json:"pubkey"`
 }
 
-func (_ BlockSubscribeFilterMentionsAccountOrProgram) isBlockSubscribeFilter() {}
+func (b BlockSubscribeFilterMentionsAccountOrProgram) isBlockSubscribeFilter() {}
 
 func NewBlockSubscribeFilterAll() BlockSubscribeFilter {
 	return BlockSubscribeFilterAll("")

@@ -23,7 +23,7 @@ import (
 
 func main() {
 	endpoint := rpc.TestNet_RPC
-	client := rpc.New(endpoint, "")
+	client := rpc.New(endpoint)
 
 	out, err := client.GetSupply(context.TODO(), rpc.CommitmentFinalized)
 	if err != nil {

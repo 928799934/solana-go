@@ -22,10 +22,9 @@ func NewWithLimiter(
 	rpcEndpoint string,
 	every rate.Limit, // time frame
 	b int, // number of requests per time frame
-	socks5Proxy string,
 ) JSONRPCClient {
 	opts := &jsonrpc.RPCClientOpts{
-		HTTPClient: newHTTP(socks5Proxy),
+		HTTPClient: newHTTP(),
 	}
 
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts)

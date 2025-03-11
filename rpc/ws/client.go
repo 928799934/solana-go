@@ -22,7 +22,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net"
 	"net/http"
 	"strconv"
 	"sync"
@@ -32,7 +31,6 @@ import (
 	"github.com/gorilla/rpc/v2/json2"
 	"github.com/gorilla/websocket"
 	"go.uber.org/zap"
-	"golang.org/x/net/proxy"
 )
 
 var ErrSubscriptionClosed = errors.New("subscription closed")
@@ -47,8 +45,8 @@ type Client struct {
 	lock                    sync.RWMutex
 	subscriptionByRequestID map[uint64]*Subscription
 	subscriptionByWSSubID   map[uint64]*Subscription
-	reconnectOnErr          bool
-	shortID                 bool
+	// reconnectOnErr          bool
+	shortID bool
 }
 
 const (
@@ -76,15 +74,17 @@ func ConnectWithOptions(ctx context.Context, rpcEndpoint string, opt *Options) (
 		subscriptionByWSSubID:   map[uint64]*Subscription{},
 	}
 
-	dialer := &websocket.Dialer{
-		Proxy:             http.ProxyFromEnvironment,
-		HandshakeTimeout:  DefaultHandshakeTimeout,
-		EnableCompression: true,
+	var dialer *websocket.Dialer
+
+	if opt != nil && opt.WebSocketClient != nil {
+		dialer = opt.WebSocketClient
 	}
-	if opt != nil && opt.Socks5Proxy != "" {
-		dialerSocket5, _ := proxy.SOCKS5("tcp", opt.Socks5Proxy, nil, proxy.Direct)
-		dialer.NetDialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
-			return dialerSocket5.Dial(network, addr)
+
+	if dialer == nil {
+		dialer = &websocket.Dialer{
+			Proxy:             http.ProxyFromEnvironment,
+			HandshakeTimeout:  DefaultHandshakeTimeout,
+			EnableCompression: true,
 		}
 	}
 
@@ -171,7 +171,7 @@ func getUint64(data []byte, keys ...string) (val uint64, err error) {
 		return 0, e
 	}
 	if t != jsonparser.Number {
-		return 0, fmt.Errorf("Value is not a number: %s", string(v))
+		return 0, fmt.Errorf("value is not a number: %s", string(v))
 	}
 	return strconv.ParseUint(string(v), 10, 64)
 }
@@ -226,7 +226,6 @@ func (c *Client) handleNewSubscriptionMessage(requestID, subID uint64) {
 		zap.Uint64("request_id", requestID),
 		zap.Int("subscription_count", len(c.subscriptionByWSSubID)),
 	)
-	return
 }
 
 func (c *Client) handleSubscriptionMessage(subID uint64, message []byte) {
@@ -265,7 +264,6 @@ func (c *Client) handleSubscriptionMessage(subID uint64, message []byte) {
 	if !sub.closed {
 		sub.stream <- result
 	}
-	return
 }
 
 func (c *Client) closeAllSubscription(err error) {
