@@ -7,7 +7,6 @@ import (
 	stdjson "encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"reflect"
 	"sync/atomic"
@@ -494,10 +493,7 @@ func (client *rpcClient) doCall(
 		ctx,
 		RPCRequest,
 		func(httpRequest *http.Request, httpResponse *http.Response) error {
-			jj, _ := io.ReadAll(httpResponse.Body)
-			fmt.Println(string(jj))
-			// decoder := json.NewDecoder(httpResponse.Body)
-			decoder := json.NewDecoder(bytes.NewBuffer(jj))
+			decoder := json.NewDecoder(httpResponse.Body)
 			decoder.DisallowUnknownFields()
 			decoder.UseNumber()
 			err := decoder.Decode(&rpcResponse)
