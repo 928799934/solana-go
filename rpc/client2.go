@@ -28,7 +28,7 @@ type RPCClientOpts struct {
 // client := rpc.New2("https://api.mainnet-beta.solana.com")
 // client := rpc.New2("https://api.mainnet-beta.solana.com", rpc.WithHTTPClient(http.DefaultClient))
 // client := rpc.New2("https://api.mainnet-beta.solana.com", rpc.WithHTTPClient(http.DefaultClient), rpc.WithLimiter(rate.Every(time.Second), 1))
-func New2(rpcEndpoint string, fns ...func(*RPCClientOpts)) JSONRPCClient {
+func New2(rpcEndpoint string, fns OptionFuncs) *Client2 {
 	opts := &RPCClientOpts{
 		RPCClientOpts: &jsonrpc.RPCClientOpts{
 			HTTPClient: newHTTP(),
@@ -41,7 +41,7 @@ func New2(rpcEndpoint string, fns ...func(*RPCClientOpts)) JSONRPCClient {
 
 	rpcClient := jsonrpc.NewClientWithOpts(rpcEndpoint, opts.RPCClientOpts)
 
-	return &client2{
+	return &Client2{
 		rpcClient: rpcClient,
 		limiter:   opts.limiter,
 	}
@@ -64,7 +64,7 @@ func WithCustomHeaders(
 }
 
 func WithLimiter(
-	every rate.Limit, // time frame
+	every rate.Limit, // requests per second; use rate.Every(d) to convert a duration
 	b int, // number of requests per time frame
 ) func(*RPCClientOpts) {
 	return func(opts *RPCClientOpts) {
@@ -72,12 +72,12 @@ func WithLimiter(
 	}
 }
 
-type client2 struct {
+type Client2 struct {
 	rpcClient jsonrpc.RPCClient
 	limiter   *rate.Limiter
 }
 
-func (cl *client2) CallForInto(
+func (cl *Client2) CallForInto(
 	ctx context.Context,
 	out any,
 	method string,
@@ -89,10 +89,10 @@ func (cl *client2) CallForInto(
 	if err := cl.limiter.Wait(ctx); err != nil {
 		return err
 	}
-	return cl.rpcClient.CallForInto(ctx, &out, method, params)
+	return cl.rpcClient.CallForInto(ctx, out, method, params)
 }
 
-func (cl *client2) CallWithCallback(
+func (cl *Client2) CallWithCallback(
 	ctx context.Context,
 	method string,
 	params []any,
@@ -107,7 +107,7 @@ func (cl *client2) CallWithCallback(
 	return cl.rpcClient.CallWithCallback(ctx, method, params, callback)
 }
 
-func (cl *client2) CallBatch(
+func (cl *Client2) CallBatch(
 	ctx context.Context,
 	requests jsonrpc.RPCRequests,
 ) (jsonrpc.RPCResponses, error) {
@@ -122,7 +122,7 @@ func (cl *client2) CallBatch(
 }
 
 // Close closes.
-func (cl *client2) Close() error {
+func (cl *Client2) Close() error {
 	if c, ok := cl.rpcClient.(io.Closer); ok {
 		return c.Close()
 	}
