@@ -55,11 +55,11 @@ func WithHTTPClient(
 	}
 }
 
-func WithCustomHeaders(
-	headers map[string]string,
+func WithCustomHeader(
+	customHeader http.Header,
 ) func(*RPCClientOpts) {
 	return func(opts *RPCClientOpts) {
-		opts.CustomHeaders = headers
+		opts.CustomHeader = customHeader
 	}
 }
 
